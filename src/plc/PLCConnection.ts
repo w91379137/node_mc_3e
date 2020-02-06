@@ -27,8 +27,8 @@ export class PLCConnection {
     // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 
     try() {
-        let buffer = Command.read(0x1000)
-        console.log(buffer)
+        let buffer = Command.write(0x1000, 0xFFFF)
+        console.log(buffer, buffer.length, buffer.byteLength)
         this.client.write(buffer)
     }
 }

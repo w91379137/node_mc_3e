@@ -4,10 +4,11 @@
 檔頭
 http://kilean.pixnet.net/blog/post/304348793-%E4%B8%89%E8%8F%B1-mc-protocol
 
-
-
+官方文件
 https://dl.mitsubishielectric.com/dl/fa/document/manual/plc/sh080008/sh080008y.pdf
 
+其他人的cs
+https://github.com/blueskit/MitsubishiPlcProtocol/blob/master/PLC/Mitsubishi/McCommand.cs
 
 Commands for 4C/3C/4E/3E frame p61 
 
