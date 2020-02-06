@@ -37,9 +37,10 @@ async function run() {
 
     let plc = new PLCConnection()
 
-    let w = Command.write(0x1000, 0b101010101010)
-    let res = await plc.send(w)
-    console.log(res)
+    let cmd = Command.write(0x1000, 0b101010101010)
+    console.log('cmd', cmd)
+    let res = await plc.send(cmd)
+    console.log('res', res)
 
     //====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
     // server 屬性建立
