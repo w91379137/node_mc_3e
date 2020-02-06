@@ -2,9 +2,6 @@
 let debug = require('debug')('app:PLCConnection')
 import * as net from "net";
 
-const Host = '10.1.1.39';
-const Port = 1026;
-
 export class PLCConnection {
 
     private client: net.Socket
@@ -12,9 +9,11 @@ export class PLCConnection {
 
     // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 
-    constructor() {
+    constructor(
+        host: string, 
+        port: number) {
 
-        this.client = net.connect(Port, Host, () => {
+        this.client = net.connect(port, host, () => {
             debug('PLC connect')
         })
 

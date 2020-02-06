@@ -1,6 +1,5 @@
 
 require('source-map-support').install();
-const delay = require('delay');
 
 let debug = require('debug')('app:main')
 
@@ -20,7 +19,14 @@ import * as express from 'express';
 import { Server } from './server/server';
 import { PLCController } from './server/controller/rlc-controller';
 import { PLCConnection } from './plc/PLCConnection';
-import { Command } from './plc/command';
+
+// TEST     10.1.1.39 1026
+// PLCv1    192.168.3.120 1025
+// PLCv2_1  192.168.3.100 1025
+// PLCv2_2  192.168.3.110 1025
+
+const plc_host = '10.1.1.39';
+const plc_port = 1026;
 
 async function run() {
 
@@ -36,7 +42,7 @@ async function run() {
     GlobalUse.log = log
     // GlobalUse.log("test")
 
-    GlobalUse.plc = new PLCConnection()
+    GlobalUse.plc = new PLCConnection(plc_host, plc_port)
 
     //====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
     // server 屬性建立
