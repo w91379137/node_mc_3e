@@ -8,7 +8,8 @@ const Port = 1026;
 
 export class PLCConnection {
 
-    client: net.Socket
+    private client: net.Socket
+    private resolve: (value?: Buffer | PromiseLike<Buffer>) => void
 
     // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 
@@ -16,19 +17,32 @@ export class PLCConnection {
 
         this.client = net.connect(Port, Host, () => {
             debug('PLC connect')
-            this.try()
         })
 
         this.client.on('data', (data) => {
-            console.log(data)
+            this.response(data)
         })
     }
 
     // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 
-    try() {
-        let buffer = Command.write(0x1000, 0xFFFF)
-        console.log(buffer, buffer.length, buffer.byteLength)
-        this.client.write(buffer)
+    // https://stackoverflow.com/questions/51488022/how-to-make-javascript-execution-wait-for-socket-on-function-response
+    
+    send(buffer, timeout = 1000): Promise<Buffer> {
+        return new Promise((resolve, _) => {
+            this.resolve = resolve
+            this.client.write(buffer)
+            // timeout
+            setTimeout(() => {
+                this.response(undefined)
+            }, timeout)
+        });
+    }
+
+    response(data) {
+        if (this.resolve) {
+            this.resolve(data)
+            this.resolve = undefined
+        }
     }
 }

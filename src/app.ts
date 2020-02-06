@@ -19,6 +19,7 @@ import * as express from 'express';
 import { Server } from './server/server';
 import { RootController } from './server/controller/root-controller';
 import { PLCConnection } from './plc/PLCConnection';
+import { Command } from './plc/command';
 
 async function run() {
 
@@ -35,6 +36,11 @@ async function run() {
     // GlobalUse.log("test")
 
     let plc = new PLCConnection()
+
+    let w = Command.write(0x1000, 0b101010101010)
+    let res = await plc.send(w)
+    console.log(res)
+
     //====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
     // server 屬性建立
 
