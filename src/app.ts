@@ -39,11 +39,17 @@ async function run() {
     let plc = new PLCConnection()
     await delay(1000)
 
-    let cmd = Command.read(0x1000, 5)
-    // let cmd = Command.write(0x1000,1)
-    // let cmd = Command.write(0x1001,1)
+    // let cmd = Command.read(0x1000, 5)
+    let cmd = Command.write(0x1000,
+        [
+            0x1 << 0,
+            0x1 << 1,
+            0x1 << 2,
+            0x1 << 3,
+            0x1 << 4,
+        ])
 
-    console.log('cmd', cmd)
+    console.log('cmd', cmd, cmd.length)
     let res = await plc.send(cmd)
     console.log('res', res)
     let parseRes = Command.parseRes(res)
