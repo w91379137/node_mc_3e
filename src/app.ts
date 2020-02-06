@@ -39,10 +39,15 @@ async function run() {
     let plc = new PLCConnection()
     await delay(1000)
 
-    let cmd = Command.write(0x1000, 0b101010101010)
+    let cmd = Command.read(0x1000, 5)
+    // let cmd = Command.write(0x1000,1)
+    // let cmd = Command.write(0x1001,1)
+
     console.log('cmd', cmd)
     let res = await plc.send(cmd)
     console.log('res', res)
+    let parseRes = Command.parseRes(res)
+    console.log('parseRes', parseRes)
 
     //====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
     // server 屬性建立
