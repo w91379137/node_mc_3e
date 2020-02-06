@@ -1,5 +1,6 @@
 
 require('source-map-support').install();
+const delay = require('delay');
 
 let debug = require('debug')('app:main')
 
@@ -36,6 +37,7 @@ async function run() {
     // GlobalUse.log("test")
 
     let plc = new PLCConnection()
+    await delay(1000)
 
     let cmd = Command.write(0x1000, 0b101010101010)
     console.log('cmd', cmd)
