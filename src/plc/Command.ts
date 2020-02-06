@@ -4,9 +4,9 @@
 export namespace Command {
 
     // http://kilean.pixnet.net/blog/post/304348793-%E4%B8%89%E8%8F%B1-mc-protocol
-    export function read(number: string = '000000'): Buffer {
+    export function read(n: number = 0x0000): Buffer {
 
-        let hex =
+        let part1 =
             [
                 '', // 標頭(Header)，E71模組會自動添加，因此這邊送碼不用加
                 '5000', // 副標頭(Subheader)
@@ -18,12 +18,21 @@ export namespace Command {
                 '0100', // 監視計時器(Monitoring timer)
                 '0104', // 指令(Command)
                 '0000', // 子指令(Subcommand)
-                number, // 暫存器位址(Device number)
+            ]
+        let b1 = Buffer.from(part1.join(''), "hex")
+
+        let b2 = Buffer.alloc(3)
+        b2.writeInt16LE(n, 0)
+
+        let part3 =
+            [
                 'B4', // 暫存器代碼(Device code) D A8 W B4
                 '0100', // 暫存器數(Number of device points)
             ]
+        let b3 = Buffer.from(part3.join(''), "hex")
 
-        let buffer = Buffer.from(hex.join(''), "hex")
+
+        let buffer = Buffer.concat([b1, b2, b3])
         return buffer
     }
 

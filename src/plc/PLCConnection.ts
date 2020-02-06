@@ -16,7 +16,7 @@ export class PLCConnection {
 
         this.client = net.connect(Port, Host, () => {
             debug('PLC connect')
-            this.read()
+            this.try()
         })
 
         this.client.on('data', (data) => {
@@ -26,8 +26,8 @@ export class PLCConnection {
 
     // ====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
 
-    read() {
-        let buffer = Command.read()
+    try() {
+        let buffer = Command.read(0x1000)
         console.log(buffer)
         this.client.write(buffer)
     }
