@@ -1,1 +1,31 @@
+
+
+
+檔頭
+http://kilean.pixnet.net/blog/post/304348793-%E4%B8%89%E8%8F%B1-mc-protocol
+
+
+
 https://dl.mitsubishielectric.com/dl/fa/document/manual/plc/sh080008/sh080008y.pdf
+
+
+Commands for 4C/3C/4E/3E frame p61 
+
+
+
+
+8.2 Batch Read and Write
+
+
+Command 01 04
+Subcommand 00 00
+Head device (Head device number + Device code)
+Device number D2 04 00 00
+Device code 20 57
+Number of device points 01
+Fixed value 00
+
+Batch read in word units (command: 0401)
+
+
+

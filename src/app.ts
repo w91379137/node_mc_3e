@@ -18,6 +18,7 @@ import { terminal } from './service/child';
 import * as express from 'express';
 import { Server } from './server/server';
 import { RootController } from './server/controller/root-controller';
+import { PLCConnection } from './plc/PLCConnection';
 
 async function run() {
 
@@ -33,6 +34,7 @@ async function run() {
     GlobalUse.log = log
     // GlobalUse.log("test")
 
+    let plc = new PLCConnection()
     //====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
     // server 屬性建立
 
