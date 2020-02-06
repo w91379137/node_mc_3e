@@ -18,7 +18,7 @@ import { terminal } from './service/child';
 
 import * as express from 'express';
 import { Server } from './server/server';
-import { RootController } from './server/controller/root-controller';
+import { PLCController } from './server/controller/rlc-controller';
 import { PLCConnection } from './plc/PLCConnection';
 import { Command } from './plc/command';
 
@@ -36,24 +36,7 @@ async function run() {
     GlobalUse.log = log
     // GlobalUse.log("test")
 
-    let plc = new PLCConnection()
-    await delay(1000)
-
-    // let cmd = Command.read(0x1000, 5)
-    let cmd = Command.write(0x1000,
-        [
-            0x1 << 0,
-            // 0x1 << 1,
-            0x1 << 2,
-            // 0x1 << 3,
-            0x1 << 4,
-        ])
-
-    console.log('cmd', cmd, cmd.length)
-    let res = await plc.send(cmd)
-    console.log('res', res)
-    let parseRes = Command.parseRes(res)
-    console.log('parseRes', parseRes)
+    GlobalUse.plc = new PLCConnection()
 
     //====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====.====
     // server 屬性建立
@@ -68,7 +51,7 @@ async function run() {
     let server = new Server({
         port: port,
         controllers: [
-            new RootController(),
+            new PLCController(),
         ],
         middlewares: [
             loggerMiddleware

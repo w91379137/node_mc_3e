@@ -1,3 +1,4 @@
+import { PLCConnection } from './plc/PLCConnection';
 
 // 把所有的 singleton 其中到這邊 import
 // 而且 如果方便的話 給出 空值行為 這樣測試 才可以通過
@@ -16,5 +17,7 @@ export var GlobalUse = {
     append: (path: string, value: string) => {},
 
     log: (value: string) => {},
+
+    plc: undefined as PLCConnection
 
 }
