@@ -43,9 +43,9 @@ async function run() {
     let cmd = Command.write(0x1000,
         [
             0x1 << 0,
-            0x1 << 1,
+            // 0x1 << 1,
             0x1 << 2,
-            0x1 << 3,
+            // 0x1 << 3,
             0x1 << 4,
         ])
 

@@ -81,10 +81,9 @@ export namespace Command {
         devicePointsBuffer.writeUInt16LE(values.length, 0)
 
         let valueBuffers = values.map(value => {
-            console.log(value)
-            let b = Buffer.alloc(2)
-            b.writeUInt16LE(value, 0)
-            return b
+            let d = Buffer.alloc(2)
+            d.writeUInt16LE(value, 0)
+            return d
         })
         let data = Buffer.concat(valueBuffers)
 
